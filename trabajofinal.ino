@@ -17,146 +17,130 @@ int cuenta_ocio = 0;
 boolean bot_derecha = LOW;
 boolean bot_alto = LOW;
 boolean bot_izquierda = LOW;
+
 // Función setup
-void setup ()
-{
-for (estePin = 0; estePin < numBots; estePin++)
-{
-pinMode (bot[estePin],INPUT);
+void setup () {
+    for (estePin = 0; estePin < numBots; estePin++) {
+        pinMode (bot[estePin],INPUT);
+    }
+    for (estePin = 0; estePin < numLeds; estePin++) {
+        pinMode (led[estePin],OUTPUT);
+    }
 }
-for (estePin = 0; estePin < numLeds; estePin++)
-{
-pinMode (led[estePin],OUTPUT);
-}
-}
+
 // Función loop
 void loop ()
 {
-for (estePin = 0; estePin < numLeds; estePin++)
-{
-digitalWrite (led[estePin], LOW);
-}
-bot_derecha = digitalRead (bot[0]);
-bot_alto = digitalRead (bot[1]);
-bot_izquierda = digitalRead (bot[2]);
-if (bot_derecha==HIGH)
+    for (estePin = 0; estePin < numLeds; estePin++) {
+        digitalWrite (led[estePin], LOW);
+    }
+    bot_derecha = digitalRead (bot[0]);
+    bot_alto = digitalRead (bot[1]);
+    bot_izquierda = digitalRead (bot[2]);
 
-{
-Derecha ();
+    if (bot_derecha==HIGH) {
+        Derecha ();
+    }
+    else if (bot_alto==HIGH) {
+        Alto ();
+    }
+    else if (bot_izquierda==HIGH) {
+        Izquierda ();
+    }
+    else {
+        Ociosa ();
+    }
 }
-else if (bot_alto==HIGH)
-{
-Alto ();
-}
-else if (bot_izquierda==HIGH)
-{
-Izquierda ();
-}
-else
-{
-Ociosa ();
-}
-}
+
 // Función Derecha
 void Derecha ()
 {
-switch (cuenta_der)
-{
-case 0:
-digitalWrite (led[0],HIGH);
-break;
-case 1:
-digitalWrite (led[1],HIGH);
-digitalWrite (led[2],HIGH);
-digitalWrite (led[3],HIGH);
-break;
-case 2:
-digitalWrite (led[4],HIGH);
-digitalWrite (led[5],HIGH);
-digitalWrite (led[6],HIGH);
-break;
-case 3:
-digitalWrite (led[7],HIGH);
-digitalWrite (led[8],HIGH);
-digitalWrite (led[9],HIGH);
-break;
-default:
-;
+    switch (cuenta_der) {
+        case 0:
+            digitalWrite (led[0],HIGH);
+            break;
+        case 1:
+            digitalWrite (led[1],HIGH);
+            digitalWrite (led[2],HIGH);
+            digitalWrite (led[3],HIGH);
+            break;
+        case 2:
+            digitalWrite (led[4],HIGH);
+            digitalWrite (led[5],HIGH);
+            digitalWrite (led[6],HIGH);
+            break;
+        case 3:
+            digitalWrite (led[7],HIGH);
+            digitalWrite (led[8],HIGH);
+            digitalWrite (led[9],HIGH);
+            break;
+        default:
+        ;
+    }
+    delay (tiempoRet);
+    cuenta_der++;
+    if (cuenta_der > 3) {
+        cuenta_der = 0;
+    }
 }
-delay (tiempoRet);
-cuenta_der++;
-if (cuenta_der > 3)
-{
 
-cuenta_der = 0;
-}
-}
 // Función Alto
-void Alto ()
-{
-if (cuenta_alto == 1)
-{
-for (estePin = 0; estePin < numLeds; estePin++)
-{
-digitalWrite (led[estePin],HIGH);
-}
-}
-else
-{
-for (estePin = 0; estePin < numLeds; estePin++)
-{
-digitalWrite (led[estePin],LOW);
-}
-}
-delay (tiempoRet);
-cuenta_alto++;
-if (cuenta_alto > 1)
-{
-cuenta_alto = 0;
-}
+void Alto () {
+    if (cuenta_alto == 1)
+    {
+        for (estePin = 0; estePin < numLeds; estePin++) {
+            digitalWrite (led[estePin],HIGH);
+        }
+    }
+    else {
+        for (estePin = 0; estePin < numLeds; estePin++) {
+            digitalWrite (led[estePin],LOW);
+        }
+    }
+    delay (tiempoRet);
+    cuenta_alto++;
+    if (cuenta_alto > 1) {
+        cuenta_alto = 0;
+    }
 }
 // Función Izquierda
-void Izquierda ()
-{
-switch (cuenta_izq)
-{
-case 0:
-digitalWrite (led[9],HIGH);
-break;
-case 1:
-digitalWrite (led[8],HIGH);
-digitalWrite (led[7],HIGH);
-digitalWrite (led[6],HIGH);
-break;
-case 2:
-digitalWrite (led[5],HIGH);
-digitalWrite (led[4],HIGH);
-digitalWrite (led[3],HIGH);
-break;
-case 3:
-digitalWrite (led[2],HIGH);
-digitalWrite (led[1],HIGH);
-digitalWrite (led[0],HIGH);
-break;
-default:
-;
+void Izquierda () {
+    switch (cuenta_izq) {
+        case 0:
+            digitalWrite (led[9],HIGH);
+            break;
+        case 1:
+            digitalWrite (led[8],HIGH);
+            digitalWrite (led[7],HIGH);
+            digitalWrite (led[6],HIGH);
+            break;
+        case 2:
+            digitalWrite (led[5],HIGH);
+            digitalWrite (led[4],HIGH);
+            digitalWrite (led[3],HIGH);
+            break;
+        case 3:
+            digitalWrite (led[2],HIGH);
+            digitalWrite (led[1],HIGH);
+            digitalWrite (led[0],HIGH);
+            break;
+        default:
+        ;
+    }
+    delay (tiempoRet);
+    cuenta_izq++;
+    if (cuenta_izq > 3) {
+        cuenta_izq = 0;
+    }
 }
-delay (tiempoRet);
-cuenta_izq++;
-if (cuenta_izq > 3)
-{
-cuenta_izq = 0;
-}
-}
+
 // Función Ociosa
-void Ociosa ()
-{
-digitalWrite (led[cuenta_ocio],HIGH);
-digitalWrite (led[cuenta_ocio+9],HIGH);
-delay (tiempoRetOciosa);
-cuenta_ocio++;
-if (cuenta_ocio > 9)
-{
-cuenta_ocio = 0;
-}
+void Ociosa () {
+    digitalWrite (led[cuenta_ocio],HIGH);
+    digitalWrite (led[cuenta_ocio+9],HIGH);
+    delay (tiempoRetOciosa);
+    cuenta_ocio++;
+    if (cuenta_ocio > 9) {
+        cuenta_ocio = 0;
+    }
 }
